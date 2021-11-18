@@ -34,11 +34,57 @@ scene.add(sphere)
 
 // Lights
 
-const pointLight = new THREE.PointLight(0xffffff, 0.1)
+const pointLight = new THREE.PointLight(0xffffff, 0.1) //color/intensidad
 pointLight.position.x = 2
 pointLight.position.y = 3
 pointLight.position.z = 4
 scene.add(pointLight)
+
+//Light 2
+
+const pointLight2 = new THREE.PointLight(0xff0000, 2)
+pointLight2.position.set(-1.86,1,-1.65);
+pointLight2.intensity = 10;
+
+scene.add(pointLight2)
+
+const light1 = gui.addFolder('Light 1')
+
+light1.add(pointLight2.position,'y').min(-3).max(3).step(0.01) //agregar la consola
+light1.add(pointLight2.position,'x').min(-6).max(6).step(0.01) //agregar la consola
+light1.add(pointLight2.position,'z').min(-3).max(3).step(0.01) //agregar la consola
+light1.add(pointLight2,'intensity').min(0).max(10).step(0.01) //agregar la consola
+ 
+const pointLightHelper = new THREE.PointLightHelper(pointLight2, 1)
+scene.add(pointLightHelper);
+
+//Light 3
+
+const pointLight3 = new THREE.PointLight(0xff0000, 2)
+pointLight3.position.set(-1.86,1,-1.65);
+pointLight3.intensity = 10;
+
+scene.add(pointLight3)
+
+const light2 = gui.addFolder('Light 2')
+
+
+light2.add(pointLight3.position,'y').min(-3).max(3).step(0.01) //agregar la consola
+light2.add(pointLight3.position,'x').min(-6).max(6).step(0.01) //agregar la consola
+light2.add(pointLight3.position,'z').min(-3).max(3).step(0.01) //agregar la consola
+light2.add(pointLight3,'intensity').min(0).max(10).step(0.01) //agregar la consola
+ 
+const light2Color = {
+    color: 0xff0000
+}
+
+light2.addColor(light2Color, 'color')
+    .onChange(()=>{
+        pointLight3.color.set(light2Color.color)
+    })
+
+const pointLightHelper2 = new THREE.PointLightHelper(pointLight3, 1)
+scene.add(pointLightHelper2);
 
 /**
  * Sizes
