@@ -42,8 +42,8 @@ scene.add(pointLight)
 
 //Light 2
 
-const pointLight2 = new THREE.PointLight(0xff0000, 2)
-pointLight2.position.set(-1.86,1,-1.65);
+const pointLight2 = new THREE.PointLight(0xd1ff, 2)
+pointLight2.position.set(1.83,-1.2,-1.65);
 pointLight2.intensity = 10;
 
 scene.add(pointLight2)
@@ -55,8 +55,8 @@ light1.add(pointLight2.position,'x').min(-6).max(6).step(0.01) //agregar la cons
 light1.add(pointLight2.position,'z').min(-3).max(3).step(0.01) //agregar la consola
 light1.add(pointLight2,'intensity').min(0).max(10).step(0.01) //agregar la consola
  
-const pointLightHelper = new THREE.PointLightHelper(pointLight2, 1)
-scene.add(pointLightHelper);
+/* const pointLightHelper = new THREE.PointLightHelper(pointLight2, 1)
+scene.add(pointLightHelper); */
 
 //Light 3
 
@@ -83,8 +83,8 @@ light2.addColor(light2Color, 'color')
         pointLight3.color.set(light2Color.color)
     })
 
-const pointLightHelper2 = new THREE.PointLightHelper(pointLight3, 1)
-scene.add(pointLightHelper2);
+/* const pointLightHelper2 = new THREE.PointLightHelper(pointLight3, 1)
+scene.add(pointLightHelper2); */
 
 /**
  * Sizes
@@ -137,16 +137,40 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  * Animate
  */
 
+document.addEventListener('mousemove',onDocumentMouseMove);
+
+let mouseX = 0;
+let mouseY = 0;
+
+let targetX = 0;
+let targetY = 0; 
+
+const windowHalfX = window.innerWidth/2;
+const windowHalfY = window.innerHeight/2;
+
+function onDocumentMouseMove(event){
+    mouseX = (event.clientX - windowHalfX)
+    mouseY = (event.clientY - windowHalfY)
+}
+
 const clock = new THREE.Clock()
 
 //PARTE DE LA ANIMACION
 const tick = () =>
 {
+    targetX = mouseX * .001
+    targetY = mouseY * .001
+
 
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
     sphere.rotation.y = .5 * elapsedTime
+
+    sphere.rotation.y += .5 * (targetX - sphere.rotation.y)
+    sphere.rotation.x += .5 * (targetY - sphere.rotation.x)
+    sphere.rotation.z += .5 * (targetY - sphere.rotation.z)
+
 
     // Update Orbital Controls
     // controls.update()
