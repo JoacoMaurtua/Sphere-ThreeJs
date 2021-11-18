@@ -22,7 +22,7 @@ const geometry = new THREE.SphereBufferGeometry(.5,64,64);
 // Materials 
 
 const material = new THREE.MeshStandardMaterial()
-material.metalness = 0.7
+material.metalness = 0.6
 material.roughness = 0.2
 material.normalMap = normalTexture;
 
@@ -153,6 +153,12 @@ function onDocumentMouseMove(event){
     mouseY = (event.clientY - windowHalfY)
 }
 
+const updateSphere = (event) =>{
+    sphere.position.y = window.scrollY * .001
+}
+
+window.addEventListener('scroll',updateSphere);
+
 const clock = new THREE.Clock()
 
 //PARTE DE LA ANIMACION
@@ -169,7 +175,7 @@ const tick = () =>
 
     sphere.rotation.y += .5 * (targetX - sphere.rotation.y)
     sphere.rotation.x += .5 * (targetY - sphere.rotation.x)
-    sphere.rotation.z += .5 * (targetY - sphere.rotation.z)
+    sphere.position.z += .5 * (targetY - sphere.rotation.x)
 
 
     // Update Orbital Controls
